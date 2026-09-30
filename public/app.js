@@ -70,7 +70,7 @@ async function list(k, q = {}) {
   } catch (x) { $('#res').innerHTML = `<p class="err">${esc(x.message)}</p>`; }
 }
 async function home() {
-  app.innerHTML = `<section class="hero"><div class="logo">ك</div><h1>كلنا لبعض</h1><p>سنخدمكم بأشفار عيوننا</p></section>
+  app.innerHTML = `<section class="hero"><div class="logo"><img src="/logo.png" alt="كلنا لبعض"></div><h1>كلنا لبعض</h1><p>سنخدمكم بأشفار عيوننا</p></section>
   <nav class="short">${[['news', 'الأخبار', '📰'], ['reps', 'المندوبون', '🎓'], ['books', 'الكتب والكورسات', '📚'], ['questions', 'الأسئلة', '💬'], ['announcements', 'الإعلانات', '📢']].map(([k, t, i]) => `<a href="#/${k}"><span>${i}</span>${t}</a>`).join('')}</nav><div id="hx"></div>`;
   const parts = await Promise.all(['announcements', 'news', 'books', 'questions'].map(k => api(`/${k}`).then(d => [k, d.items.slice(0, 3)]).catch(() => [k, []])));
   $('#hx').innerHTML = parts.map(([k, it]) => `<div class="sh"><h2>${SEC[k].h}</h2><a href="#/${k}">عرض الكل ←</a></div>${it.length ? `<div class="grid">${it.map(r => card(k, r)).join('')}</div>` : '<p class="empty">لا يوجد محتوى حاليًا.</p>'}`).join('');
